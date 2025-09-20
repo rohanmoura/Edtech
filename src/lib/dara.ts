@@ -38,14 +38,14 @@ export const mockCourseData: MockCourseData = {
                     id: "r-01",
                     order: 1,
                     lesson: "Introduction to React & JSX",
-                    explanation: "React is an open-source JavaScript library used for building dynamic and interactive user interfaces, especially single-page applications (SPAs). Instead of directly manipulating the DOM, React uses a virtual DOM, which makes updates faster and more efficient. The building blocks of React are components, which are small, reusable pieces of UI that can be combined to create complex applications. To make writing components easier, React introduces JSX (JavaScript XML), a syntax extension that allows developers to write HTML-like code inside JavaScript. JSX improves readability and makes UI structure easier to visualize, while still being converted into JavaScript under the hood. For example, instead of using React.createElement, developers can simply write <h1>Hello World</h1> inside their component. JSX also allows embedding JavaScript expressions with curly braces { }, enabling dynamic rendering of values, conditions, and lists. Together, React and JSX provide a powerful, declarative, and intuitive way to build modern web applications with cleaner and more maintainable code..",
+                    explanation: "React is an open-source JavaScript library used for building dynamic and interactive user interfaces, especially single-page applications (SPAs).",
                     completed: true,
                 },
                 {
                     id: "r-02",
                     order: 2,
                     lesson: "Components & Props",
-                    explanation: "In React, one of the biggest strengths lies in creating reusable components, which are independent, self-contained pieces of UI that can be reused across different parts of an application. For example, a button, a card, or a navigation bar can be written once and used multiple times, ensuring consistency and reducing duplication. To make components dynamic, React uses props (properties), which allow data to be passed from a parent component to a child component. Props are read-only, meaning the child component cannot change them, ensuring predictable data flow. For instance, a Card component can accept props like title and description to render different content while keeping the structure the same. Beyond props, React also supports composition patterns, where components can be combined or nested to create more flexible and scalable UIs. A common composition pattern is using children props, which allows developers to pass JSX or even other components inside a component, making layouts more modular. These techniques together enable developers to build applications that are scalable, maintainable, and easy to extend by reusing building blocks instead of rewriting code.",
+                    explanation: "In React, one of the biggest strengths lies in creating reusable components, which are independent, self-contained pieces of UI that can be reused across different parts of an application. ",
                     completed: true,
                 },
                 // …continue adding the rest of lessons (r-03 to r-10)

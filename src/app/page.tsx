@@ -14,106 +14,99 @@ export default function HomePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  const navigateToCourse = (rawTag: string) => {
+    const cleanTag = rawTag.replace(/^#/, "").trim();
+    if (!cleanTag) return;
+    setLoading(true);
+    router.push(`/courses/${encodeURIComponent(cleanTag)}`);
+  };
+
   const handleInputSubmit = (tags: string) => {
-    console.log("Learning tags submitted:", tags)
-    // TODO: Implement learning session start logic
+    navigateToCourse(tags);
   }
 
 
   const handleTagClick = (tag: string) => {
-    setLoading(true); // show loader
-    console.log("Tag clicked:", tag);
-
-    // simulate navigation delay
-    setTimeout(() => {
-      router.push(`/courses/${tag.toLowerCase()}`);
-    }, 500); // 500ms delay to show loader
+    navigateToCourse(tag);
   };
 
   return (
-    <div className="relative flex min-h-screen w-full overflow-hidden bg-black/[0.96] antialiased p-6 md:p-8 lg:p-12">
-      {/* Grid pattern background */}
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-0 [background-size:40px_40px] select-none",
-          "[background-image:linear-gradient(to_right,#171717_1px,transparent_1px),linear-gradient(to_bottom,#171717_1px,transparent_1px)]",
-        )}
-      />
+    <div className="relative min-h-screen overflow-hidden bg-black text-white">
+      <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" fill="#5b91ff" />
 
-      {/* Spotlight effects */}
-      <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" fill="white" />
-      <Spotlight className="-top-40 right-0 md:-top-20 md:right-60" fill="blue" />
-
-      <div className="container relative z-10 mx-auto max-w-7xl">
-        <div className="flex flex-col items-center text-center space-y-12 min-h-[80vh] justify-center">
-          {/* Hero Content */}
-          <div className="space-y-12 relative z-10 animate-fade-in">
-            <div className="space-y-8">
-              <Badge
-                variant="secondary"
-                className="text-sm font-medium px-6 py-3 bg-blue-500/20 text-blue-300 border-blue-500/30 hover:bg-blue-500/30 transition-all duration-300 animate-slide-up backdrop-blur-sm"
-              >
-                <Sparkles className="w-4 h-4 mr-2" />
-                AI-Powered Learning Platform
-              </Badge>
-
-              {/* Replace the h1 block */}
-              <HeroHeading />
-
-
-              <p
-                className="text-xl text-neutral-300 max-w-3xl mx-auto text-pretty leading-relaxed animate-slide-up"
-                style={{ animationDelay: "0.4s" }}
-              >
-                Master new skills with personalized AI guidance. Simply enter your learning goals and let our
-                intelligent system create the perfect curriculum tailored just for you.
-              </p>
-            </div>
-
-            {/* Interactive Learning Section */}
-            <div className="space-y-8 max-w-4xl mx-auto animate-slide-up" style={{ animationDelay: "0.6s" }}>
-              <div className="relative">
-                <div className="absolute -inset-4 bg-blue-500/10 rounded-2xl blur-xl animate-pulse"></div>
-                <div className="relative bg-neutral-900/80 backdrop-blur-sm rounded-2xl p-8 border border-neutral-800 shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-2">
-                  <LearningInput onSubmit={handleInputSubmit} className="mb-6" />
-                  <PopularTags onTagClick={handleTagClick} />
-                </div>
-              </div>
-            </div>
+      <main className="relative z-10 mx-auto max-w-6xl px-6 py-16 md:px-8 lg:py-24">
+        {/* Hero Section */}
+        <section className="mb-12 text-center">
+          <HeroHeading />
+          <p className="mx-auto mt-4 max-w-2xl text-balance text-neutral-400">
+            Generate tailored learning paths with AI. Type what you want to learn or pick a popular topic.
+          </p>
+          <div className="mx-auto mt-8 max-w-2xl">
+            <LearningInput onSubmit={handleInputSubmit} />
           </div>
+        </section>
 
-          {/* Feature Cards - Updated for dark mode */}
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto animate-slide-up"
-            style={{ animationDelay: "1s" }}
+        {/* Popular Tags */}
+        <section className="mb-16">
+          <PopularTags onTagClick={handleTagClick} />
+        </section>
+
+        {/* Feature Grid */}
+        <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <Card className="bg-neutral-900/60 border border-neutral-800 p-6">
+            <div className="flex items-center gap-3">
+              <BookOpen className="h-6 w-6 text-blue-400" />
+              <h3 className="font-semibold">Structured Learning</h3>
+            </div>
+            <p className="mt-2 text-sm text-neutral-400">
+              Courses are broken into clear modules and lessons, tailored to your topic.
+            </p>
+          </Card>
+          <Card className="bg-neutral-900/60 border border-neutral-800 p-6">
+            <div className="flex items-center gap-3">
+              <Brain className="h-6 w-6 text-purple-400" />
+              <h3 className="font-semibold">AI-Powered</h3>
+            </div>
+            <p className="mt-2 text-sm text-neutral-400">
+              Lessons are generated by AI based on your input for the most relevant guidance.
+            </p>
+          </Card>
+          <Card className="bg-neutral-900/60 border border-neutral-800 p-6">
+            <div className="flex items-center gap-3">
+              <Zap className="h-6 w-6 text-yellow-400" />
+              <h3 className="font-semibold">Fast & Focused</h3>
+            </div>
+            <p className="mt-2 text-sm text-neutral-400">
+              Get a complete course outline in seconds, ready to start learning.
+            </p>
+          </Card>
+          <Card className="bg-neutral-900/60 border border-neutral-800 p-6">
+            <div className="flex items-center gap-3">
+              <Users className="h-6 w-6 text-emerald-400" />
+              <h3 className="font-semibold">For All Levels</h3>
+            </div>
+            <p className="mt-2 text-sm text-neutral-400">
+              Whether beginner or advanced, content adapts to your needs.
+            </p>
+          </Card>
+        </section>
+
+        {/* CTA */}
+        <section className="mt-10 text-center">
+          <button
+            onClick={() => navigateToCourse("React")}
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white shadow-lg transition hover:bg-blue-700"
           >
-            {[
-              { icon: Brain, title: "AI-Powered", desc: "Smart personalization" },
-              { icon: Zap, title: "Instant", desc: "Immediate feedback" },
-              { icon: BookOpen, title: "Comprehensive", desc: "All subjects covered" },
-              { icon: Users, title: "Expert", desc: "World-class knowledge" },
-            ].map((feature, index) => (
-              <Card
-                key={index}
-                className="p-6 border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-3 hover:scale-105 group cursor-pointer"
-                style={{ animationDelay: `${1.2 + index * 0.1}s` }}
-              >
-                <div className="space-y-4 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-blue-600/30 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 border border-blue-500/20">
-                    <feature.icon className="h-8 w-8 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" />
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold text-neutral-200 group-hover:text-blue-300 transition-colors duration-300">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-neutral-400 text-pretty leading-relaxed">{feature.desc}</p>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+            <Sparkles className="h-5 w-5" /> Generate a React Course
+          </button>
+        </section>
+      </main>
+
+      {loading && (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 backdrop-blur-sm">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-400 border-t-transparent" />
         </div>
-      </div>
+      )}
     </div>
   )
 }
